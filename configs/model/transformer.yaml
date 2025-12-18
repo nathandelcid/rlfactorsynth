@@ -1,0 +1,58 @@
+# Transformer policy/value model
+
+model:
+  name: transformer_policy
+  
+  # Encoder settings
+  encoder:
+    # Signature tensor encoder
+    signature:
+      input_dim: null  # Computed from T-count
+      hidden_dim: 256
+      output_dim: 512
+      num_layers: 2
+      dropout: 0.1
+    
+    # Clifford tableau encoder
+    tableau:
+      input_dim: null  # Computed from n_qubits
+      hidden_dim: 128
+      output_dim: 256
+      num_layers: 2
+      dropout: 0.1
+    
+    # Structural features encoder
+    features:
+      input_dim: 16  # T-count, Clifford count, depth, etc.
+      hidden_dim: 64
+      output_dim: 128
+      dropout: 0.1
+    
+    # Fusion
+    fusion_dim: 768  # 512 + 256 (signature + tableau)
+  
+  # Transformer settings
+  transformer:
+    d_model: 768
+    nhead: 8
+    num_layers: 4
+    dim_feedforward: 2048
+    dropout: 0.1
+    activation: gelu
+    use_checkpointing: false
+  
+  # Output heads
+  policy_head:
+    hidden_dim: 512
+    num_layers: 2
+    dropout: 0.1
+  
+  value_head:
+    hidden_dim: 256
+    num_layers: 2
+    dropout: 0.1
+  
+  # Initialization
+  init:
+    method: xavier_uniform
+    gain: 1.0

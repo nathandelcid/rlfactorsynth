@@ -1,0 +1,39 @@
+# RLFactorSynth Default Configuration
+
+defaults:
+  - env: single_qubit
+  - model: transformer
+  - train: ppo
+  - eval: benchmarks
+  - _self_
+
+# Experiment settings
+experiment:
+  name: rlfactorsynth_default
+  seed: 42
+  deterministic: true
+  log_dir: logs
+  checkpoint_dir: checkpoints
+
+# Device settings
+device:
+  type: auto  # auto, cpu, cuda, cuda:0, etc.
+  num_workers: 4
+  pin_memory: true
+
+# Logging
+logging:
+  level: INFO
+  use_tensorboard: true
+  use_wandb: false
+  log_interval: 100
+  save_interval: 1000
+  eval_interval: 5000
+
+# Hydra configuration
+hydra:
+  run:
+    dir: outputs/${experiment.name}/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: multirun/${experiment.name}/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${hydra.job.num}
