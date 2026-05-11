@@ -174,10 +174,31 @@ def count_clifford_gates(gates: List[str]) -> int:
     clifford_prefixes = ("H", "S", "Sdg", "Z", "X", "Y", "CX")
     return sum(1 for g in gates if any(g.startswith(p) for p in clifford_prefixes))
 
-def make_rotation_gate(axis: str, angle: float):
-    '''
-    if axis == 'x':
-        gate = np.array([])
-    '''
-    gate = np.array([[1, 0], [0, 1]], dtype=np.complex128)
+def make_rotation_gate(axis: str, angle: float) -> np.ndarray:
+    axis = axis.lower()
+
+    c = np.cos(angle / 2)
+    s = np.sin(angle / 2)
+
+    if axis == "x":
+        gate = np.array([
+            [c, -1j * s],
+            [-1j * s, c],
+        ], dtype=np.complex128)
+
+    elif axis == "y":
+        gate = np.array([
+            [c, -s],
+            [s, c],
+        ], dtype=np.complex128)
+
+    elif axis == "z":
+        gate = np.array([
+            [np.exp(-1j * angle / 2), 0],
+            [0, np.exp(1j * angle / 2)],
+        ], dtype=np.complex128)
+
+    else:
+        raise ValueError("axis must be 'x', 'y', or 'z'")
+
     return gate
