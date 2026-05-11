@@ -10,6 +10,8 @@ X = np.array([[0, 1], [1, 0]], dtype=np.complex128)
 Y = np.array([[0, -1j], [1j, 0]], dtype=np.complex128)
 Z = np.array([[1, 0], [0, -1]], dtype=np.complex128)
 
+
+
 # Hadamard gate
 H = np.array([[1, 1], [1, -1]], dtype=np.complex128) / np.sqrt(2)
 
@@ -171,3 +173,11 @@ def count_clifford_gates(gates: List[str]) -> int:
     """Count Clifford gates in a gate sequence."""
     clifford_prefixes = ("H", "S", "Sdg", "Z", "X", "Y", "CX")
     return sum(1 for g in gates if any(g.startswith(p) for p in clifford_prefixes))
+
+def make_rotation_gate(axis: str, angle: float):
+    '''
+    if axis == 'x':
+        gate = np.array([])
+    '''
+    gate = np.array([[1, 0], [0, 1]], dtype=np.complex128)
+    return gate
