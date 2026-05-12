@@ -44,6 +44,7 @@ dependencies = [
     "ipykernel>=6.23.0",
     "qiskit>=0.43.0",
     "qiskit-aer>=0.12.0",
+    "trasyn>=0.3.0",
 ]
 
 [project.optional-dependencies]
@@ -55,7 +56,7 @@ dev = [
 ]
 
 gpu = [
-    "torch>=2.0.0+cu118",
+    "torch>=2.0.0",
 ]
 
 [project.urls]
