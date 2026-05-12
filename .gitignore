@@ -71,3 +71,6 @@ multirun/
 
 # Pre-commit
 .pre-commit-config.yaml
+
+# AI
+AGENTS.md
